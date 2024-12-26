@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const AuthRouter = require('./routes/AuthRouter');
 const ProductRouter = require('./routes/ProductRouter');
+const ExpenseRouter = require('./routes/ExpenseRouter');
+const ensureAuthenticated = require('./middleware/Auth');
 
 
 
@@ -17,6 +19,7 @@ app.use(cors());
 
 app.use('/auth', AuthRouter);
 app.use('/products', ProductRouter );
+app.use('/expenses',ensureAuthenticated, ExpenseRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
